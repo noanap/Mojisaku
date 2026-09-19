@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>モジサク - ショート動画をたった数分でSNS投稿文・ブログ要約へ</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px 16px 60px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding-top: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input[type="url"], input[type="email"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="url"]:focus, input[type="email"]:focus {
+      border-color: var(--primary);
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #fafafa;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .checkbox-item:hover {
+      background-color: #f1f5f9;
+      border-color: var(--primary);
+    }
+
+    .checkbox-item input {
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .sample-box {
+      background-color: #f1f5f9;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 13px;
+      color: #334155;
+      margin-top: 12px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .price-tag {
+      text-align: center;
+      margin: 20px 0 16px;
+    }
+
+    .price-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .price-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      transition: opacity 0.2s;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.95;
+    }
+
+    .disclaimer {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo">MojiSaku（モジサク）</div>
+      <h1 class="hero-title">ショート動画を貼るだけ。<br>プロ品質のSNS投稿文・要約へ。</h1>
+      <p class="hero-desc">AI下書き ＋ 人間による最終整形チェックで、自然でバズる文章を即日納品。</p>
+    </header>
+
+    <div class="card">
+      <!-- 修正ポイント：送信ボタンが押されたらJavaScriptの処理(handleOrder)を動かす -->
+      <form id="order-form" onsubmit="handleOrder(event)">
+        <div class="form-group">
+          <label for="video-url">1. ショート動画のURL</label>
+          <input type="url" id="video-url" placeholder="https://www.tiktok.com/@username/video/..." required>
+        </div>
+
+        <div class="form-group">
+          <label>2. 作成したい成果物（複数選択可）</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" id="item-x" checked>
+              <span class="checkbox-label">X（旧Twitter）用 ポスト文（フック＋要約）</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="item-note" checked>
+              <span class="checkbox-label">Instagramキャプション / Note用要約</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="item-telop" checked>
+              <span class="checkbox-label">誤字修正済みテロップテキスト</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="sample-box">
+          <strong>💡 納品成果物のイメージ：</strong><br>
+          「動画内容の要点抽出」「SNSアルゴリズムに最適化したフック文」「自然な日本語への調整」が完了した状態で届くため、そのままコピペして投稿できます。
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="email">3. 納品通知用メールアドレス</label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="price-tag">
+          <div class="price-sub">一式セット価格</div>
+          <div class="price-val">￥500 <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);">/ 1本</span></div>
+        </div>
+
+        <button type="submit" class="btn-submit">動画を分析して依頼する（500円）</button>
+        <p class="disclaimer">※安全なStripe決済画面へ移動します。登録なしで1回からご利用いただけます。</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- 【追加】画面遷移とダミーAIのプログラム -->
+  <script>
+    function handleOrder(event) {
+      // 画面がリロードされるのを防ぐ
+      event.preventDefault();
+
+      // 1. 本来はここでStripe決済画面へ飛ぶが、今回はスキップして「決済完了」とする
+      alert("【テスト】決済が完了し、AIが動画を分析しました！\nワーカーの作業画面へ移動します。");
+
+      // 2. AIが作った「ダミーの下書きデータ」をブラウザに記憶させる
+      const aiDraftData = {
+        x_post: "【ダミー】個人開発で月10万稼ぐ裏ワザ\n今日から試せる超ニッチ×SNS直販のポイント！\n1. ターゲットを絞る\n2. 決済自動化",
+        note_summary: "【ダミー要約】本動画では、個人でWebサービスを運営し収益化するための具体的なステップについて解説しています。",
+        telop_text: "00:01 こんにちは！ダミーテキストです。\n00:05 まず一つ目は..."
+      };
+      
+      // 'mojisaku_data' という名前で保存
+      localStorage.setItem('mojisaku_data', JSON.stringify(aiDraftData));
+
+      // 3. 作業画面 (worker.html) へ移動する
+      window.location.href = 'worker.html';
+    }
+  </script>
+</body>
+</html>

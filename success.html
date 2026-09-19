@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>モジサク - 成果物受け取り画面</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --success-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px 16px 60px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ヘッダー・完了メッセージ */
+    .success-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-top: 12px;
+    }
+
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      background-color: #d1fae5;
+      color: var(--success-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 12px;
+    }
+
+    .success-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .success-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* 成果物カード */
+    .result-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .result-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-copy {
+      background-color: #f1f5f9;
+      color: var(--primary);
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .result-body {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #334155;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    /* 再注文導線 */
+    .reorder-card {
+      text-align: center;
+      background: linear-gradient(135deg, #e0e7ff, #f3e8ff);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    .reorder-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .btn-reorder {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 8px;
+      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- 1. 完了ヘッダー -->
+    <div class="success-header">
+      <div class="success-icon">✓</div>
+      <h1 class="success-title">文章の整形が完了しました！</h1>
+      <p class="success-desc">以下のテキストをコピーして、そのままSNSに投稿いただけます。</p>
+    </div>
+
+    <!-- 2. 成果物1：X用ポスト文 -->
+    <div class="result-card">
+      <div class="result-header">
+        <span class="result-title">📱 X（旧Twitter）用 ポスト文</span>
+        <button class="btn-copy" onclick="copyText('text-x')">📋 コピーする</button>
+      </div>
+      <div class="result-body" id="text-x">【個人開発で月10万稼ぐ裏ワザ】
+大手を狙うな！今日から試せる超ニッチ×SNS直販のポイントを3つにまとめました。
+
+1. ターゲットを狭く絞る
+2. 決済は既存ツールに任せる
+3. 発信自体をコンテンツにする
+
+隙間時間で試してみてね！#副業 #個人開発</div>
+    </div>
+
+    <!-- 3. 成果物2：Note / Instagram用要約 -->
+    <div class="result-card">
+      <div class="result-header">
+        <span class="result-title">📝 Note / Instagram用 要約文</span>
+        <button class="btn-copy" onclick="copyText('text-note')">📋 コピーする</button>
+      </div>
+      <div class="result-body" id="text-note">【動画の要約】
+本動画では、個人でWebサービスを運営し収益化するための具体的なステップについて解説しています。
+特に「メッセージやり取り不要の自動化設計」を取り入れることで、1人でもサポート対応に追われずに運用を続けることが可能です。</div>
+    </div>
+
+    <!-- 4. 成果物3：テロップ用テキスト -->
+    <div class="result-card">
+      <div class="result-header">
+        <span class="result-title">🎬 誤字修正済みテロップテキスト</span>
+        <button class="btn-copy" onclick="copyText('text-telop')">📋 コピーする</button>
+      </div>
+      <div class="result-body" id="text-telop">00:01 こんにちは！個人開発で月10万稼ぐ方法です。
+00:05 まず一つ目はターゲットを絞ること。
+00:10 二つ目は決済の自動化です。</div>
+    </div>
+
+    <!-- 5. リピート注文ボタン -->
+    <div class="reorder-card">
+      <div class="reorder-title">次の動画も投稿文に変換しますか？</div>
+      <a href="index.html" class="btn-reorder">新しい動画を依頼する（500円）</a>
+    </div>
+
+  </div>
+
+  <script>
+    // ワンタップコピー機能の簡易スクリプト
+    function copyText(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('クリップボードにコピーしました！');
+      });
+    }
+  </script>
+
+</body>
+</html>
